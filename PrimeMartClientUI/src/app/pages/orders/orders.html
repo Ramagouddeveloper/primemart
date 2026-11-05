@@ -1,0 +1,557 @@
+<div class="orders-page">
+
+  <!-- =====================================================
+       PAGE HEADER
+       ===================================================== -->
+  <div class="orders-header">
+
+    <div class="container">
+
+      <div class="header-content">
+
+        <div>
+          <div class="eyebrow">
+            ACCOUNT
+          </div>
+
+          <h1>Your Orders</h1>
+
+          <p>
+            Track, manage and view your recent orders
+          </p>
+        </div>
+
+        <a
+          routerLink="/products"
+          class="shop-btn">
+
+          Continue Shopping
+          <span>→</span>
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+  <main class="container orders-content">
+
+
+    <!-- ===================================================
+         LOADING
+         =================================================== -->
+    <div
+      *ngIf="loadingOrders && orders.length === 0"
+      class="loading-box">
+
+      <div class="spinner"></div>
+
+      <span>
+        Loading your orders...
+      </span>
+
+    </div>
+
+
+    <!-- ===================================================
+         EMPTY ORDERS
+         =================================================== -->
+    <div
+      *ngIf="!loadingOrders && orders.length === 0"
+      class="empty-orders">
+
+      <div class="empty-icon">
+        📦
+      </div>
+
+      <h2>No orders yet</h2>
+
+      <p>
+        You haven't placed any orders yet.
+        Start shopping to see your orders here.
+      </p>
+
+      <a
+        routerLink="/products"
+        class="start-shopping-btn">
+
+        Start Shopping
+
+      </a>
+
+    </div>
+
+
+    <!-- ===================================================
+         ORDERS
+         =================================================== -->
+    <div
+      *ngFor="let order of orders"
+      class="order-card">
+
+
+      <!-- =================================================
+           ORDER HEADER
+           ================================================= -->
+      <div class="order-top">
+
+        <div class="order-meta">
+
+          <div class="meta-block">
+
+            <span class="meta-label">
+              ORDER #
+            </span>
+
+            <strong>
+              {{ order.id }}
+            </strong>
+
+          </div>
+
+
+          <div class="meta-block">
+
+            <span class="meta-label">
+              ORDER TOTAL
+            </span>
+
+            <strong class="order-total">
+              ₹{{ order.total }}
+            </strong>
+
+          </div>
+
+        </div>
+
+
+        <!-- STATUS -->
+        <div class="order-status">
+
+          <span
+            class="status-badge"
+            [ngClass]="order.status">
+
+            <span class="status-dot"></span>
+
+            {{ order.status }}
+
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =================================================
+           ORDER BODY
+           ================================================= -->
+      <div class="order-body">
+
+
+        <!-- =================================================
+             DELIVERY MESSAGE
+             ================================================= -->
+        <div
+          *ngIf="
+            order.status?.trim()?.toUpperCase() === 'SHIPPED'
+          "
+          class="delivery-banner shipped">
+
+          <div class="banner-icon">
+            🚚
+          </div>
+
+          <div>
+
+            <strong>
+              Your order has been shipped
+            </strong>
+
+            <span>
+              Expected delivery in 2–3 days
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          *ngIf="
+            order.status?.trim()?.toUpperCase() === 'OUT_FOR_DELIVERY'
+          "
+          class="delivery-banner out">
+
+          <div class="banner-icon">
+            🚴
+          </div>
+
+          <div>
+
+            <strong>
+              Your order is out for delivery
+            </strong>
+
+            <span>
+              Your package should arrive today
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <div
+          *ngIf="
+            order.status?.trim()?.toUpperCase() === 'DELIVERED'
+          "
+          class="delivery-banner delivered">
+
+          <div class="banner-icon">
+            📦
+          </div>
+
+          <div>
+
+            <strong>
+              Delivered successfully
+            </strong>
+
+            <span>
+              Your order has been delivered
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             TRACKING
+             ================================================= -->
+        <div class="tracking-section">
+
+          <div class="tracking-title">
+            Order Status
+          </div>
+
+
+          <div class="tracker">
+
+
+            <!-- LINE -->
+            <div class="tracker-line"></div>
+
+
+            <!-- PLACED -->
+            <div
+              class="tracking-step"
+              [class.active]="
+                isStepDone(order.status, 'PENDING')
+              ">
+
+              <div class="step-circle">
+                <span>✓</span>
+              </div>
+
+              <div class="step-content">
+
+                <strong>
+                  Placed
+                </strong>
+
+                <span>
+                  Order placed
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- ACCEPTED -->
+            <div
+              class="tracking-step"
+              [class.active]="
+                isStepDone(order.status, 'ACCEPTED')
+              ">
+
+              <div class="step-circle">
+                <span>✓</span>
+              </div>
+
+              <div class="step-content">
+
+                <strong>
+                  Accepted
+                </strong>
+
+                <span>
+                  Order confirmed
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- SHIPPED -->
+            <div
+              class="tracking-step"
+              [class.active]="
+                isStepDone(order.status, 'SHIPPED')
+              ">
+
+              <div class="step-circle">
+                <span>🚚</span>
+              </div>
+
+              <div class="step-content">
+
+                <strong>
+                  Shipped
+                </strong>
+
+                <span>
+                  On the way
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- OUT -->
+            <div
+              class="tracking-step"
+              [class.active]="
+                isStepDone(order.status, 'OUT_FOR_DELIVERY')
+              ">
+
+              <div class="step-circle">
+                <span>🚴</span>
+              </div>
+
+              <div class="step-content">
+
+                <strong>
+                  Out for delivery
+                </strong>
+
+                <span>
+                  Arriving today
+                </span>
+
+              </div>
+
+            </div>
+
+
+            <!-- DELIVERED -->
+            <div
+              class="tracking-step"
+              [class.active]="
+                isStepDone(order.status, 'DELIVERED')
+              ">
+
+              <div class="step-circle">
+                <span>✓</span>
+              </div>
+
+              <div class="step-content">
+
+                <strong>
+                  Delivered
+                </strong>
+
+                <span>
+                  Package delivered
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ACTIONS
+             ================================================= -->
+        <div class="order-actions">
+
+          <button
+            type="button"
+            class="view-btn"
+            (click)="toggleItems(order.id)">
+
+            <span>
+              {{ selectedOrderId === order.id
+                ? 'Hide Items'
+                : 'View Items' }}
+            </span>
+
+            <span class="arrow">
+              {{ selectedOrderId === order.id
+                ? '↑'
+                : '↓' }}
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+            class="cancel-btn"
+            *ngIf="
+              order.status === 'PENDING' ||
+              order.status === 'ACCEPTED'
+            "
+            [disabled]="
+              cancellingOrderId === order.id
+            "
+            (click)="cancelOrder(order.id)">
+
+            {{
+              cancellingOrderId === order.id
+                ? 'Cancelling...'
+                : 'Cancel Order'
+            }}
+
+          </button>
+
+        </div>
+
+
+        <!-- =================================================
+             ORDER ITEMS
+             ================================================= -->
+        <div
+          *ngIf="selectedOrderId === order.id"
+          class="items-section">
+
+
+          <div class="items-header">
+
+            <div>
+
+              <h3>
+                Order Items
+              </h3>
+
+              <span>
+                Items included in this order
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Loading -->
+          <div
+            *ngIf="loadingItems"
+            class="items-loading">
+
+            <div class="small-spinner"></div>
+
+            Loading items...
+
+          </div>
+
+
+          <!-- No items -->
+          <div
+            *ngIf="
+              !loadingItems &&
+              orderItems.length === 0
+            "
+            class="no-items">
+
+            No items found for this order.
+
+          </div>
+
+
+          <!-- Items -->
+          <div
+            *ngFor="let item of orderItems"
+            class="item-row">
+
+
+            <!-- IMAGE -->
+            <div class="item-image">
+
+              <img
+                [src]="getImage(item.product?.image)"
+                (error)="onImgError($event)"
+                [alt]="
+                  item.product?.name || 'Product'
+                " />
+
+            </div>
+
+
+            <!-- DETAILS -->
+            <div class="item-details">
+
+              <h4>
+                {{ item.product?.name || 'Product' }}
+              </h4>
+
+              <div class="item-info">
+
+                <span>
+                  Quantity: {{ item.quantity }}
+                </span>
+
+                <span class="separator">
+                  |
+                </span>
+
+                <span>
+                  Price: ₹{{ item.price }}
+                </span>
+
+              </div>
+
+              <div class="item-stock">
+                ✓ Item included in order
+              </div>
+
+            </div>
+
+
+            <!-- PRICE -->
+            <div class="item-price">
+
+              <span>
+                Item Price
+              </span>
+
+              <strong>
+                ₹{{ item.price * item.quantity }}
+              </strong>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>

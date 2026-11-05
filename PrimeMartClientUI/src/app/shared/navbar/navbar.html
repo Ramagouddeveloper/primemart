@@ -1,0 +1,294 @@
+<nav class="top-nav">
+
+  <div class="nav-container">
+
+    <!-- BRAND -->
+    <a
+      class="brand"
+      routerLink="/home">
+
+      <span class="brand-name">PrimeMart</span>
+
+    </a>
+
+
+    <!-- MOBILE TOGGLE -->
+    <button
+      class="mobile-toggle"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navMenu"
+      aria-controls="navMenu"
+      aria-label="Toggle navigation">
+
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </button>
+
+
+    <!-- NAV CONTENT -->
+    <div
+      class="nav-collapse collapse"
+      id="navMenu">
+
+
+      <!-- LEFT NAVIGATION -->
+      <div class="main-links">
+
+        <a
+          class="nav-link"
+          routerLink="/home"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }">
+
+          <span class="nav-icon">⌂</span>
+          <span>Home</span>
+
+        </a>
+
+
+        <a
+          class="nav-link"
+          routerLink="/products"
+          routerLinkActive="active">
+
+          <span class="nav-icon">▦</span>
+          <span>Products</span>
+
+        </a>
+
+
+        <!-- CART -->
+        <a
+          *ngIf="auth.isLoggedIn()"
+          class="nav-link cart-link"
+          routerLink="/cart"
+          routerLinkActive="active">
+
+          <span class="cart-icon">
+
+            🛒
+
+            <span
+              class="cart-badge"
+              *ngIf="cartCount > 0">
+
+              {{ cartCount }}
+
+            </span>
+
+          </span>
+
+          <span>Cart</span>
+
+        </a>
+
+
+        <!-- ORDERS -->
+        <a
+          *ngIf="auth.isLoggedIn()"
+          class="nav-link"
+          routerLink="/orders"
+          routerLinkActive="active">
+
+          <span class="nav-icon">▤</span>
+          <span>My Orders</span>
+
+        </a>
+
+      </div>
+
+
+      <!-- RIGHT SIDE -->
+      <div class="right-section">
+
+
+        <!-- DELIVERY LOCATION -->
+        <div
+          class="location-wrapper"
+          *ngIf="auth.isLoggedIn()">
+
+          <button
+            type="button"
+            class="deliver-box"
+            (click)="toggleLocationDropdown($event)">
+
+            <span class="location-pin">
+              📍
+            </span>
+
+            <span class="delivery-content">
+
+              <span class="deliver-small">
+                Deliver to
+              </span>
+
+              <span class="deliver-main">
+
+                {{ selectedLocation?.city || 'Select Location' }}
+
+                <span
+                  *ngIf="selectedLocation?.pincode">
+
+                  - {{ selectedLocation.pincode }}
+
+                </span>
+
+              </span>
+
+            </span>
+
+            <span class="location-arrow">
+              ▾
+            </span>
+
+          </button>
+
+
+          <!-- LOCATION DROPDOWN -->
+          <div
+            class="location-dropdown"
+            *ngIf="showLocationDropdown"
+            (click)="$event.stopPropagation()">
+
+
+            <div class="dropdown-header">
+
+              <div class="dropdown-title">
+                Choose your delivery location
+              </div>
+
+              <div class="dropdown-subtitle">
+                Select where you want your order delivered
+              </div>
+
+            </div>
+
+
+            <div class="location-list">
+
+              <button
+                type="button"
+                class="location-item"
+                *ngFor="let location of locations"
+                (click)="selectLocation(location, $event)">
+
+
+                <div class="location-radio">
+
+                  <span>
+                    📍
+                  </span>
+
+                </div>
+
+
+                <div class="location-details">
+
+                  <div class="loc-city">
+
+                    {{ location.city }}
+
+                    <span
+                      *ngIf="location.pincode">
+
+                      - {{ location.pincode }}
+
+                    </span>
+
+                  </div>
+
+                  <div class="loc-address">
+
+                    {{ location.fullAddress }}
+
+                  </div>
+
+                </div>
+
+
+                <span class="location-chevron">
+                  ›
+                </span>
+
+              </button>
+
+
+              <div
+                *ngIf="locations.length === 0"
+                class="no-location">
+
+                <span class="no-location-icon">
+                  📍
+                </span>
+
+                <span>
+                  No delivery locations available
+                </span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- LOGIN -->
+        <a
+          *ngIf="!auth.isLoggedIn()"
+          class="login-link"
+          routerLink="/login"
+          routerLinkActive="active">
+
+          <span class="login-small">
+            Hello, sign in
+          </span>
+
+          <span class="login-main">
+            Account & Lists
+            <span>▾</span>
+          </span>
+
+        </a>
+
+
+        <!-- LOGGED IN USER -->
+        <div
+          class="account-section"
+          *ngIf="auth.isLoggedIn()">
+
+          <div class="account-info">
+
+            <span class="account-small">
+              Hello,
+            </span>
+
+            <span class="account-name">
+              {{ auth.getUsername() }}
+            </span>
+
+          </div>
+
+
+          <button
+            type="button"
+            class="logout-btn"
+            (click)="logout()">
+
+            Logout
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</nav>

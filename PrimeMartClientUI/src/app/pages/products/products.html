@@ -1,0 +1,594 @@
+<div class="products-page">
+
+  <!-- =====================================================
+       TOP HEADER
+       ===================================================== -->
+  <header class="products-header">
+
+    <div class="container-fluid products-header-inner">
+
+      <!-- Title -->
+      <div class="products-heading">
+
+        <div class="products-icon">
+          🛍️
+        </div>
+
+        <div>
+          <h1>Products</h1>
+          <p>Shop products available in your location</p>
+        </div>
+
+      </div>
+
+
+      <!-- Controls -->
+      <div class="products-controls">
+
+        <!-- Product Location -->
+        <div class="control-group">
+
+          <label for="productLocation">
+            Product Location
+          </label>
+
+          <select
+            id="productLocation"
+            class="location-select"
+            [(ngModel)]="selectedLocationId"
+            (ngModelChange)="onLocationChange()"
+            [disabled]="loadingLocations">
+
+            <option [ngValue]="null">
+              📍 Select Location
+            </option>
+
+            <option
+              *ngFor="let location of locations"
+              [ngValue]="location.id">
+
+              {{ location.city }}
+              {{ location.pincode ? ' - ' + location.pincode : '' }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Search -->
+        <div class="search-wrapper">
+
+          <span class="search-icon">
+            🔍
+          </span>
+
+          <input
+            class="search-box"
+            type="text"
+            placeholder="Search products..."
+            [(ngModel)]="searchText"
+            (ngModelChange)="onSearchChange()" />
+
+        </div>
+
+
+        <!-- Sort -->
+        <div class="control-group">
+
+          <label for="sortProducts">
+            Sort
+          </label>
+
+          <select
+            id="sortProducts"
+            class="sort-select"
+            [(ngModel)]="sortBy"
+            (ngModelChange)="onSortChange()">
+
+            <option value="latest">
+              Latest
+            </option>
+
+            <option value="priceLow">
+              Price: Low → High
+            </option>
+
+            <option value="priceHigh">
+              Price: High → Low
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =====================================================
+       MAIN CONTENT
+       ===================================================== -->
+  <main class="container-fluid main-content">
+
+    <div class="products-layout">
+
+
+      <!-- =================================================
+           SIDEBAR
+           ================================================= -->
+      <aside class="category-sidebar">
+
+        <div class="sidebar-card">
+
+          <div class="sidebar-heading">
+
+            <span class="sidebar-title">
+              Categories
+            </span>
+
+            <span class="category-count">
+              {{ categories.length }}
+            </span>
+
+          </div>
+
+
+          <!-- Loading -->
+          <div
+            *ngIf="loadingCategories"
+            class="category-loading">
+
+            <span class="loading-dot"></span>
+
+            Loading categories...
+
+          </div>
+
+
+          <!-- Categories -->
+          <div
+            *ngIf="!loadingCategories"
+            class="category-list">
+
+            <!-- All -->
+            <button
+              type="button"
+              class="category-item"
+              [class.active]="selectedCategoryId === null"
+              (click)="selectCategory(null)">
+
+              <span class="category-name">
+                All Categories
+              </span>
+
+              <span
+                *ngIf="selectedCategoryId === null"
+                class="active-arrow">
+
+                ›
+              </span>
+
+            </button>
+
+
+            <!-- Individual categories -->
+            <button
+              type="button"
+              *ngFor="let category of categories"
+              class="category-item"
+              [class.active]="selectedCategoryId === category.id"
+              (click)="selectCategory(category.id)">
+
+              <span class="category-name">
+
+                {{ category.name }}
+
+              </span>
+
+              <span
+                *ngIf="selectedCategoryId === category.id"
+                class="active-arrow">
+
+                ›
+              </span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Shopping information -->
+        <div class="sidebar-info">
+
+          <div class="info-icon">
+            🚚
+          </div>
+
+          <div>
+
+            <strong>Fast Delivery</strong>
+
+            <p>
+              Products available for your selected location.
+            </p>
+
+          </div>
+
+        </div>
+
+      </aside>
+
+
+      <!-- =================================================
+           PRODUCT SECTION
+           ================================================= -->
+      <section class="products-section">
+
+
+        <!-- Section heading -->
+        <div class="section-top">
+
+          <div>
+
+            <h2>
+              {{ selectedCategoryId === null
+                ? 'All Products'
+                : 'Products' }}
+            </h2>
+
+            <span
+              *ngIf="!loadingProducts && !noLocationSelected && !errorMessage">
+
+              {{ filteredProducts.length }} products
+
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             LOADING
+             ================================================= -->
+        <div
+          *ngIf="loadingProducts"
+          class="loading-container">
+
+          <div
+            class="loading-card"
+            *ngFor="let item of [1,2,3,4,5,6,7,8]">
+
+            <div class="skeleton-image"></div>
+
+            <div class="skeleton-line large"></div>
+
+            <div class="skeleton-line medium"></div>
+
+            <div class="skeleton-line small"></div>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ERROR
+             ================================================= -->
+        <div
+          *ngIf="errorMessage && !loadingProducts"
+          class="message-card error-message">
+
+          <div class="message-icon">
+            ⚠️
+          </div>
+
+          <div>
+
+            <h3>Unable to load products</h3>
+
+            <p>
+              {{ errorMessage }}
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             NO LOCATION
+             ================================================= -->
+        <div
+          *ngIf="noLocationSelected && !loadingProducts"
+          class="message-card location-message">
+
+          <div class="message-icon">
+            📍
+          </div>
+
+          <div>
+
+            <h3>Select a product location</h3>
+
+            <p>
+              Please select a location to see available products.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PRODUCTS
+             ================================================= -->
+        <div
+          class="products-grid"
+          *ngIf="
+            !loadingProducts &&
+            !noLocationSelected &&
+            !errorMessage
+          ">
+
+
+          <!-- Product Card -->
+          <article
+            class="product-card"
+            *ngFor="let product of filteredProducts"
+            [class.out-of-stock-card]="product.quantity <= 0">
+
+
+            <!-- Product Image -->
+            <div class="product-image-wrapper">
+
+
+              <!-- Deal Badge -->
+              <span
+                class="deal-badge"
+                *ngIf="
+                  product.actualPrice &&
+                  product.actualPrice > product.price
+                ">
+
+                {{
+                  (
+                    (product.actualPrice - product.price)
+                    / product.actualPrice * 100
+                  ) | number:'1.0-0'
+                }}% OFF
+
+              </span>
+
+
+              <!-- Out of stock -->
+              <span
+                class="stock-badge out"
+                *ngIf="product.quantity <= 0">
+
+                OUT OF STOCK
+
+              </span>
+
+
+              <img
+                class="product-image"
+                [src]="getImageFromBytes(product.image)"
+                [alt]="product.name || 'Product'"
+                loading="lazy"
+                (error)="onImageError($event)" />
+
+            </div>
+
+
+            <!-- Product information -->
+            <div class="product-content">
+
+
+              <!-- Category -->
+              <div class="product-category">
+
+                {{ product.category?.name || 'Category' }}
+
+              </div>
+
+
+              <!-- Product name -->
+              <h3
+                class="product-title"
+                [title]="product.name">
+
+                {{ product.name || 'Product' }}
+
+              </h3>
+
+
+              <!-- Rating -->
+              <div class="rating-row">
+
+                <span class="stars">
+                  ★★★★★
+                </span>
+
+                <span class="rating-text">
+                  4.5
+                </span>
+
+              </div>
+
+
+              <!-- Price -->
+              <div class="price-section">
+
+                <span class="current-price">
+
+                  ₹{{ product.price }}
+
+                </span>
+
+
+                <span
+                  class="actual-price"
+                  *ngIf="
+                    product.actualPrice &&
+                    product.actualPrice > product.price
+                  ">
+
+                  ₹{{ product.actualPrice }}
+
+                </span>
+
+
+                <span
+                  class="discount-text"
+                  *ngIf="
+                    product.actualPrice &&
+                    product.actualPrice > product.price
+                  ">
+
+                  Save ₹{{
+                    product.actualPrice - product.price
+                  }}
+
+                </span>
+
+              </div>
+
+
+              <!-- Stock -->
+              <div class="stock-section">
+
+                <span
+                  *ngIf="product.quantity > 5"
+                  class="stock available">
+
+                  ✓ In Stock
+
+                </span>
+
+
+                <span
+                  *ngIf="
+                    product.quantity > 0 &&
+                    product.quantity <= 5
+                  "
+                  class="stock limited">
+
+                  Only {{ product.quantity }} left
+
+                </span>
+
+
+                <span
+                  *ngIf="product.quantity <= 0"
+                  class="stock unavailable">
+
+                  Currently unavailable
+
+                </span>
+
+              </div>
+
+
+              <!-- Cart -->
+              <div class="cart-section">
+
+
+                <div
+                  class="quantity-control"
+                  [class.disabled]="product.quantity <= 0">
+
+
+                  <button
+                    type="button"
+                    class="quantity-button"
+                    [disabled]="
+                      getQuantity(product) <= 0
+                    "
+                    (click)="decreaseQty(product)"
+                    aria-label="Decrease quantity">
+
+                    −
+
+                  </button>
+
+
+                  <span class="quantity-value">
+
+                    {{ getQuantity(product) }}
+
+                  </span>
+
+
+                  <button
+                    type="button"
+                    class="quantity-button"
+                    [disabled]="
+                      product.quantity <= 0 ||
+                      getQuantity(product) >= product.quantity
+                    "
+                    (click)="increaseQty(product)"
+                    aria-label="Increase quantity">
+
+                    +
+
+                  </button>
+
+                </div>
+
+
+                <span
+                  class="cart-label"
+                  *ngIf="getQuantity(product) > 0">
+
+                  In cart
+
+                </span>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- =================================================
+             NO PRODUCTS
+             ================================================= -->
+        <div
+          *ngIf="
+            !loadingProducts &&
+            !noLocationSelected &&
+            !errorMessage &&
+            filteredProducts.length === 0
+          "
+          class="message-card empty-message">
+
+          <div class="empty-icon">
+            🛒
+          </div>
+
+          <h3>No products found</h3>
+
+          <p>
+            Try another search term or select another category.
+          </p>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</div>

@@ -1,0 +1,22 @@
+<div class="location-container">
+
+  <div *ngFor="let loc of locations"
+       class="location-card"
+       [class.active]="selectedLocation?.id === loc.id"
+       (click)="selectLocation(loc)">
+
+    <div class="fw-bold">
+      {{loc.city}}, {{loc.area}}
+    </div>
+
+    <div class="small text-muted">
+      {{loc.fullAddress}}
+    </div>
+
+    <div class="small text-muted">
+      {{loc.landmark}} - {{loc.pincode}}
+    </div>
+
+  </div>
+
+</div>

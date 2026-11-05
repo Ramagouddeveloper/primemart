@@ -1,0 +1,668 @@
+<div class="product-management-page">
+
+  <!-- =========================
+       PAGE HEADER
+  ========================== -->
+  <div class="page-header">
+    <div class="container">
+      <div class="header-content">
+
+        <div>
+          <span class="eyebrow">PRODUCT MANAGEMENT</span>
+
+          <h1>Add Product</h1>
+
+          <p>
+            Create a new product and make it available at your assigned location.
+          </p>
+        </div>
+
+        <div class="header-icon">
+          <span>📦</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+  <div class="container main-container">
+
+    <!-- =========================
+         ADD PRODUCT
+    ========================== -->
+    <div class="product-form-card">
+
+      <!-- Card Header -->
+      <div class="card-header">
+
+        <div class="card-header-icon">
+          ➕
+        </div>
+
+        <div>
+          <h2>Product Information</h2>
+
+          <p>
+            Enter the details of the product you want to add.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           FORM BODY
+      ========================== -->
+      <div class="form-body">
+
+        <!-- Product Name -->
+        <div class="form-group full-width">
+
+          <label>
+            Product Name
+            <span class="required">*</span>
+          </label>
+
+          <input
+            class="form-control-custom"
+            type="text"
+            placeholder="e.g. Fresh Basmati Rice 5kg"
+            [(ngModel)]="name">
+
+          <small>
+            Enter a clear and recognizable product name.
+          </small>
+
+        </div>
+
+
+        <!-- Quantity -->
+        <div class="form-group">
+
+          <label>
+            Stock Quantity
+            <span class="required">*</span>
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="input-icon">
+              📦
+            </span>
+
+            <input
+              class="form-control-custom with-icon"
+              type="number"
+              min="0"
+              placeholder="Available quantity"
+              [(ngModel)]="quantity">
+
+          </div>
+
+          <small>
+            Number of units currently available.
+          </small>
+
+        </div>
+
+
+        <!-- Category -->
+        <div class="form-group">
+
+          <label>
+            Category
+            <span class="required">*</span>
+          </label>
+
+          <select
+            class="form-control-custom"
+            [(ngModel)]="categoryId">
+
+            <!-- IMPORTANT:
+                 categoryId is a number,
+                 so use ngValue instead of value -->
+            <option [ngValue]="0">
+              Select Category
+            </option>
+
+            <option
+              *ngFor="let c of categories"
+              [ngValue]="c.id">
+
+              {{ c.name }}
+
+            </option>
+
+          </select>
+
+          <small>
+            Choose the category that best matches this product.
+          </small>
+
+        </div>
+
+
+        <!-- Actual Price -->
+        <div class="form-group">
+
+          <label>
+            Actual Price
+            <span class="required">*</span>
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="currency-symbol">
+              ₹
+            </span>
+
+            <input
+              class="form-control-custom with-icon"
+              type="number"
+              min="0"
+              placeholder="0.00"
+              [(ngModel)]="actualPrice">
+
+          </div>
+
+          <small>
+            Original or market price of the product.
+          </small>
+
+        </div>
+
+
+        <!-- Selling Price -->
+        <div class="form-group">
+
+          <label>
+            Selling Price
+            <span class="required">*</span>
+          </label>
+
+          <div class="input-wrapper">
+
+            <span class="currency-symbol">
+              ₹
+            </span>
+
+            <input
+              class="form-control-custom with-icon"
+              type="number"
+              min="0"
+              placeholder="0.00"
+              [(ngModel)]="price">
+
+          </div>
+
+          <small>
+            Price customers will pay.
+          </small>
+
+        </div>
+
+
+        <!-- =========================
+             IMAGE UPLOAD
+        ========================== -->
+        <div class="form-group full-width">
+
+          <label>
+            Product Image
+          </label>
+
+          <div class="upload-box">
+
+            <div class="upload-icon">
+              🖼️
+            </div>
+
+            <div class="upload-content">
+
+              <strong>
+                Upload product image
+              </strong>
+
+              <span>
+                Choose a clear image of your product
+              </span>
+
+              <label class="upload-button">
+
+                Choose Image
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  (change)="onFileSelected($event)">
+
+              </label>
+
+            </div>
+
+          </div>
+
+          <small>
+            Recommended: JPG or PNG image with a clear product view.
+          </small>
+
+        </div>
+
+
+        <!-- =========================
+             PRICE PREVIEW
+        ========================== -->
+        <div
+          class="price-preview"
+          *ngIf="(actualPrice ?? 0) > 0 || (price ?? 0) > 0">
+
+          <div class="preview-title">
+
+            <span>💰</span>
+
+            Customer Price Preview
+
+          </div>
+
+
+          <div class="preview-content">
+
+            <!-- Selling Price -->
+            <div class="preview-price">
+
+              <span class="label">
+                Selling Price
+              </span>
+
+              <strong>
+                ₹{{ price ?? 0 }}
+              </strong>
+
+            </div>
+
+
+            <!-- Actual Price -->
+            <div
+              class="preview-original"
+              *ngIf="(actualPrice ?? 0) > 0">
+
+              <span class="label">
+                Actual Price
+              </span>
+
+              <span>
+                ₹{{ actualPrice ?? 0 }}
+              </span>
+
+            </div>
+
+
+            <!-- Savings -->
+            <div
+              class="saving-badge"
+              *ngIf="
+                (actualPrice ?? 0) > (price ?? 0)
+                && (price ?? 0) > 0
+              ">
+
+              Save ₹{{ (actualPrice ?? 0) - (price ?? 0) }}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           FORM FOOTER
+      ========================== -->
+      <div class="form-footer">
+
+        <!-- Clear -->
+        <button
+          type="button"
+          class="btn-secondary"
+          (click)="
+            name='';
+            quantity=0;
+            actualPrice=0;
+            price=0;
+            categoryId=0
+          ">
+
+          Clear
+
+        </button>
+
+
+        <!-- Add Product -->
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="addProduct()">
+
+          <span>
+            ➕
+          </span>
+
+          Add Product
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         MY PRODUCTS
+    ========================== -->
+    <div class="products-card">
+
+      <!-- Products Header -->
+      <div class="products-header">
+
+        <div class="products-title">
+
+          <div class="products-icon">
+            📋
+          </div>
+
+          <div>
+
+            <h2>
+              My Products
+            </h2>
+
+            <p>
+              Products added to your assigned location.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- Product Count -->
+        <div class="product-count">
+
+          <strong>
+            {{ products.length }}
+          </strong>
+
+          <span>
+            Products
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           LOADING
+      ========================== -->
+      <div
+        class="loading-state"
+        *ngIf="loadingProducts">
+
+        <div class="spinner"></div>
+
+        <span>
+          Loading products...
+        </span>
+
+      </div>
+
+
+      <!-- =========================
+           TABLE
+      ========================== -->
+      <div
+        class="table-wrapper"
+        *ngIf="!loadingProducts">
+
+        <table class="products-table">
+
+          <thead>
+
+            <tr>
+
+              <th>
+                ID
+              </th>
+
+              <th>
+                Product
+              </th>
+
+              <th>
+                Category
+              </th>
+
+              <th>
+                Selling Price
+              </th>
+
+              <th>
+                Actual Price
+              </th>
+
+              <th>
+                Stock
+              </th>
+
+              <th>
+                Location
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <!-- =========================
+                 PRODUCTS
+            ========================== -->
+            <tr
+              *ngFor="let p of products">
+
+              <!-- ID -->
+              <td>
+
+                <span class="product-id">
+                  #{{ p.id }}
+                </span>
+
+              </td>
+
+
+              <!-- Product -->
+              <td>
+
+                <div class="product-name-cell">
+
+                  <div class="product-placeholder">
+                    📦
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      {{ p.name }}
+                    </strong>
+
+                    <span>
+                      Product
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+
+              <!-- Category -->
+              <td>
+
+                <span class="category-badge">
+
+                  {{ p.category?.name || '-' }}
+
+                </span>
+
+              </td>
+
+
+              <!-- Selling Price -->
+              <td>
+
+                <strong class="selling-price">
+
+                  ₹{{ p.price }}
+
+                </strong>
+
+              </td>
+
+
+              <!-- Actual Price -->
+              <td>
+
+                <span
+                  class="actual-price"
+                  *ngIf="p.actualPrice !== null && p.actualPrice !== undefined">
+
+                  ₹{{ p.actualPrice }}
+
+                </span>
+
+                <span
+                  *ngIf="p.actualPrice === null || p.actualPrice === undefined">
+
+                  -
+
+                </span>
+
+              </td>
+
+
+              <!-- Stock -->
+              <td>
+
+                <div class="stock-cell">
+
+                  <span
+                    class="stock-number"
+                    [class.low-stock]="
+                      p.quantity > 0 &&
+                      p.quantity <= 5
+                    "
+                    [class.out-of-stock]="
+                      p.quantity <= 0
+                    ">
+
+                    {{ p.quantity }}
+
+                  </span>
+
+
+                  <span
+                    class="stock-status"
+                    [class.low]="
+                      p.quantity > 0 &&
+                      p.quantity <= 5
+                    "
+                    [class.out]="
+                      p.quantity <= 0
+                    "
+                    [class.available]="
+                      p.quantity > 5
+                    ">
+
+                    {{
+                      p.quantity <= 0
+                        ? 'Out of stock'
+                        : p.quantity <= 5
+                          ? 'Low stock'
+                          : 'In stock'
+                    }}
+
+                  </span>
+
+                </div>
+
+              </td>
+
+
+              <!-- Location -->
+              <td>
+
+                <div class="location-cell">
+
+                  <span class="location-pin">
+                    📍
+                  </span>
+
+                  <span>
+                    {{ p.locationId || '-' }}
+                  </span>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+
+            <!-- =========================
+                 EMPTY STATE
+            ========================== -->
+            <tr
+              *ngIf="products.length === 0">
+
+              <td
+                colspan="7"
+                class="empty-cell">
+
+                <div class="empty-state">
+
+                  <div class="empty-icon">
+                    📦
+                  </div>
+
+                  <h3>
+                    No products yet
+                  </h3>
+
+                  <p>
+                    Add your first product using the form above.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

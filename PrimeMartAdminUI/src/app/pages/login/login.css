@@ -1,0 +1,77 @@
+/* Background */
+.login-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f6f9fc, #e9eef5);
+}
+
+/* Card */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+}
+
+.login-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Title */
+.login-title {
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.login-subtitle {
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+/* Form */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  transition: 0.2s ease;
+}
+
+.form-group input:focus {
+  border-color: #f0ad4e;
+  box-shadow: 0 0 0 3px rgba(240,173,78,0.2);
+  outline: none;
+}
+
+/* Button */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 600;
+  background: #f0ad4e;
+  transition: 0.3s ease;
+}
+
+.login-btn:hover {
+  background: #e39b2c;
+  transform: translateY(-2px);
+}

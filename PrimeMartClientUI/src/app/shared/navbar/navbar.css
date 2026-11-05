@@ -1,0 +1,979 @@
+/* =========================================================
+   PRIME MART - AMAZON STYLE NAVBAR
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.top-nav {
+  position: relative;
+  z-index: 1000;
+  width: 100%;
+  min-height: 64px;
+
+  background: #131921;
+
+  color: #ffffff;
+
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+
+/* =========================================================
+   MAIN CONTAINER
+   ========================================================= */
+
+.nav-container {
+  width: 100%;
+  max-width: 1600px;
+
+  min-height: 64px;
+
+  margin: 0 auto;
+  padding: 0 20px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   BRAND
+   ========================================================= */
+
+.brand {
+  min-width: 145px;
+  height: 52px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 10px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  color: #ffffff;
+  text-decoration: none;
+
+  transition: 0.15s ease;
+}
+
+.brand:hover {
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.brand-name {
+  position: relative;
+
+  font-size: 22px;
+  font-weight: 800;
+
+  letter-spacing: -0.4px;
+}
+
+
+/* Orange smile-like underline */
+
+.brand-name::after {
+  content: "";
+
+  position: absolute;
+
+  left: 2px;
+  right: 2px;
+  bottom: -5px;
+
+  height: 2px;
+
+  background: #ff9900;
+
+  border-radius: 50%;
+}
+
+
+/* =========================================================
+   NAV COLLAPSE
+   ========================================================= */
+
+.nav-collapse {
+  flex: 1;
+
+  display: flex;
+  align-items: center;
+
+  min-width: 0;
+}
+
+
+/* =========================================================
+   MAIN LINKS
+   ========================================================= */
+
+.main-links {
+  display: flex;
+  align-items: center;
+
+  gap: 2px;
+}
+
+
+/* =========================================================
+   NAV LINK
+   ========================================================= */
+
+.nav-link {
+  position: relative;
+
+  min-height: 48px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  gap: 7px;
+
+  padding: 0 13px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  color: #ffffff !important;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+.nav-link:hover {
+  border-color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.04);
+
+  color: #ffffff !important;
+}
+
+
+.nav-link.active {
+  color: #ff9900 !important;
+
+  border-bottom-color: #ff9900;
+}
+
+
+/* =========================================================
+   NAV ICON
+   ========================================================= */
+
+.nav-icon {
+  font-size: 17px;
+  line-height: 1;
+
+  color: #ffffff;
+}
+
+.nav-link.active .nav-icon {
+  color: #ff9900;
+}
+
+
+/* =========================================================
+   CART
+   ========================================================= */
+
+.cart-link {
+  gap: 8px;
+}
+
+.cart-icon {
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 21px;
+}
+
+
+/* =========================================================
+   CART BADGE
+   ========================================================= */
+
+.cart-badge {
+  position: absolute;
+
+  top: -9px;
+  right: -9px;
+
+  min-width: 17px;
+  height: 17px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0 4px;
+
+  border-radius: 10px;
+
+  background: #ff9900;
+
+  color: #111;
+
+  font-size: 9px;
+  font-weight: 800;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   RIGHT SECTION
+   ========================================================= */
+
+.right-section {
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+}
+
+
+/* =========================================================
+   LOCATION
+   ========================================================= */
+
+.location-wrapper {
+  position: relative;
+}
+
+
+.deliver-box {
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 7px;
+
+  padding: 5px 9px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  background: transparent;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  font-family: inherit;
+
+  transition:
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+
+.deliver-box:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+
+.location-pin {
+  font-size: 18px;
+  line-height: 1;
+}
+
+
+.delivery-content {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 115px;
+}
+
+
+.deliver-small {
+  color: #cccccc;
+
+  font-size: 10px;
+  font-weight: 500;
+
+  line-height: 13px;
+}
+
+
+.deliver-main {
+  max-width: 190px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  line-height: 17px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.location-arrow {
+  color: #cccccc;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   LOCATION DROPDOWN
+   ========================================================= */
+
+.location-dropdown {
+  position: absolute;
+
+  top: calc(100% + 8px);
+  right: 0;
+
+  width: 350px;
+
+  padding: 0;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border: 1px solid #d5d9d9;
+
+  border-radius: 7px;
+
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.22);
+
+  animation: locationDropdown 0.15s ease-out;
+
+  z-index: 99999;
+}
+
+
+@keyframes locationDropdown {
+
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}
+
+
+/* =========================================================
+   DROPDOWN HEADER
+   ========================================================= */
+
+.dropdown-header {
+  padding: 17px 17px 14px;
+
+  background: #f7f8f8;
+
+  border-bottom: 1px solid #eaeded;
+}
+
+
+.dropdown-title {
+  color: #111111;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+
+.dropdown-subtitle {
+  margin-top: 4px;
+
+  color: #565959;
+
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   LOCATION LIST
+   ========================================================= */
+
+.location-list {
+  max-height: 360px;
+
+  overflow-y: auto;
+
+  padding: 7px;
+}
+
+
+/* =========================================================
+   LOCATION ITEM
+   ========================================================= */
+
+.location-item {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 11px;
+
+  padding: 12px 10px;
+
+  margin-bottom: 3px;
+
+  border: 1px solid transparent;
+  border-radius: 5px;
+
+  background: #ffffff;
+
+  color: #111111;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  font-family: inherit;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+
+.location-item:hover {
+  background: #f3f3f3;
+
+  border-color: #d5d9d9;
+}
+
+
+.location-radio {
+  width: 32px;
+  height: 32px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f0f2f2;
+
+  font-size: 15px;
+}
+
+
+.location-details {
+  min-width: 0;
+  flex: 1;
+}
+
+
+.loc-city {
+  color: #111111;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  line-height: 18px;
+}
+
+
+.loc-address {
+  margin-top: 3px;
+
+  color: #565959;
+
+  font-size: 10px;
+
+  line-height: 15px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+
+
+.location-chevron {
+  flex-shrink: 0;
+
+  color: #777;
+
+  font-size: 22px;
+}
+
+
+/* =========================================================
+   NO LOCATION
+   ========================================================= */
+
+.no-location {
+  min-height: 120px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 8px;
+
+  color: #565959;
+
+  font-size: 12px;
+
+  text-align: center;
+}
+
+
+.no-location-icon {
+  font-size: 25px;
+}
+
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+.login-link {
+  min-height: 48px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 4px 10px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+
+  color: #ffffff;
+
+  text-decoration: none;
+
+  transition: 0.15s ease;
+}
+
+
+.login-link:hover {
+  border-color: #ffffff;
+
+  color: #ffffff;
+}
+
+
+.login-small {
+  color: #cccccc;
+
+  font-size: 10px;
+
+  line-height: 13px;
+}
+
+
+.login-main {
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+
+.login-main span {
+  color: #cccccc;
+
+  margin-left: 3px;
+}
+
+
+/* =========================================================
+   ACCOUNT
+   ========================================================= */
+
+.account-section {
+  min-height: 48px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 4px 8px;
+
+  border: 1px solid transparent;
+  border-radius: 3px;
+}
+
+
+.account-section:hover {
+  border-color: #ffffff;
+}
+
+
+.account-info {
+  display: flex;
+  flex-direction: column;
+
+  min-width: 65px;
+}
+
+
+.account-small {
+  color: #cccccc;
+
+  font-size: 10px;
+
+  line-height: 13px;
+}
+
+
+.account-name {
+  max-width: 100px;
+
+  overflow: hidden;
+
+  color: #ffffff;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.logout-btn {
+  min-height: 32px;
+
+  padding: 0 12px;
+
+  border: 1px solid #a88734;
+  border-radius: 5px;
+
+  background: #ffd814;
+
+  color: #111111;
+
+  cursor: pointer;
+
+  font-family: inherit;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  transition: 0.15s ease;
+}
+
+
+.logout-btn:hover {
+  background: #f7ca00;
+
+  border-color: #9c7e25;
+}
+
+
+/* =========================================================
+   MOBILE TOGGLE
+   ========================================================= */
+
+.mobile-toggle {
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 8px;
+
+  border: 1px solid #777;
+  border-radius: 4px;
+
+  background: transparent;
+
+  cursor: pointer;
+}
+
+
+.mobile-toggle span {
+  display: block;
+
+  width: 23px;
+  height: 2px;
+
+  margin: 4px auto;
+
+  background: #ffffff;
+
+  border-radius: 2px;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+  .nav-container {
+    padding: 0 12px;
+  }
+
+  .brand {
+    min-width: 125px;
+  }
+
+  .nav-link {
+    padding: 0 9px;
+    font-size: 12px;
+  }
+
+  .delivery-content {
+    min-width: 95px;
+  }
+
+  .deliver-main {
+    max-width: 130px;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+  .top-nav {
+    min-height: 60px;
+  }
+
+  .nav-container {
+    min-height: 60px;
+
+    flex-wrap: wrap;
+
+    padding: 0 12px;
+  }
+
+
+  /* Brand */
+
+  .brand {
+    height: 56px;
+
+    min-width: 120px;
+  }
+
+  .brand-name {
+    font-size: 20px;
+  }
+
+
+  /* Toggle */
+
+  .mobile-toggle {
+    display: block;
+
+    margin-left: auto;
+  }
+
+
+  /* Collapse */
+
+  .nav-collapse {
+    flex-basis: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    padding: 10px 0 14px;
+
+    background: #131921;
+  }
+
+
+  .main-links {
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 3px;
+  }
+
+
+  .nav-link {
+    min-height: 44px;
+
+    justify-content: flex-start;
+
+    padding: 0 13px !important;
+
+    border-radius: 5px;
+  }
+
+
+  .nav-link.active {
+    background: rgba(255, 153, 0, 0.1);
+
+    border-bottom: 0;
+  }
+
+
+  /* Right */
+
+  .right-section {
+    width: 100%;
+
+    flex-direction: column;
+
+    align-items: stretch;
+
+    gap: 5px;
+
+    margin-top: 7px;
+  }
+
+
+  /* Location */
+
+  .location-wrapper {
+    width: 100%;
+  }
+
+
+  .deliver-box {
+    width: 100%;
+
+    min-height: 48px;
+  }
+
+
+  .delivery-content {
+    flex: 1;
+  }
+
+
+  .deliver-main {
+    max-width: none;
+  }
+
+
+  /* Dropdown */
+
+  .location-dropdown {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+
+    width: 100%;
+  }
+
+
+  /* Login */
+
+  .login-link {
+    min-height: 44px;
+  }
+
+
+  /* Account */
+
+  .account-section {
+    justify-content: space-between;
+
+    width: 100%;
+
+    min-height: 44px;
+  }
+
+
+  .account-info {
+    flex: 1;
+  }
+
+
+  .account-name {
+    max-width: none;
+  }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+  .nav-container {
+    padding: 0 8px;
+  }
+
+  .brand {
+    min-width: 110px;
+    padding-left: 6px;
+  }
+
+  .brand-name {
+    font-size: 19px;
+  }
+
+  .mobile-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .location-dropdown {
+    width: calc(100vw - 16px);
+
+    left: 50%;
+
+    transform: translateX(-50%);
+  }
+
+}

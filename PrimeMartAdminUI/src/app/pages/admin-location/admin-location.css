@@ -1,0 +1,788 @@
+/* =========================================
+   PRIME MART - LOCATION MANAGEMENT
+   ========================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+.location-management-page {
+  min-height: 100vh;
+  background: #eaeded;
+  color: #172033;
+  padding-bottom: 50px;
+}
+
+
+/* =========================================
+   PAGE HEADER
+   ========================================= */
+
+.page-header {
+  background: #131921;
+  color: #ffffff;
+  border-bottom: 1px solid #26313d;
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 135px;
+  padding: 28px 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #232f3e;
+  border: 1px solid #37475a;
+  border-radius: 12px;
+
+  font-size: 27px;
+}
+
+.eyebrow {
+  color: #febd69;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  margin-bottom: 5px;
+}
+
+.header-title h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.header-title p {
+  margin: 6px 0 0;
+  color: #b7c0ca;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   HEADER SUMMARY
+   ========================================= */
+
+.location-summary {
+  min-width: 125px;
+  padding: 14px 20px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background: #232f3e;
+  border: 1px solid #37475a;
+  border-radius: 10px;
+}
+
+.summary-number {
+  color: #ffffff;
+  font-size: 25px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.summary-label {
+  margin-top: 4px;
+  color: #aeb8c3;
+  font-size: 12px;
+}
+
+
+/* =========================================
+   MAIN CONTAINER
+   ========================================= */
+
+.main-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 32px;
+}
+
+
+/* =========================================
+   COMMON CARD
+   ========================================= */
+
+.location-form-card,
+.locations-card {
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid #d5d9d9;
+  border-radius: 10px;
+
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.07);
+}
+
+
+/* =========================================
+   ADD LOCATION CARD
+   ========================================= */
+
+.location-form-card {
+  margin-bottom: 26px;
+}
+
+.card-header {
+  padding: 22px 25px;
+
+  background: #fafafa;
+  border-bottom: 1px solid #e7e9e9;
+}
+
+.card-header-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.card-header-icon {
+  width: 43px;
+  height: 43px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff3e0;
+  border: 1px solid #ffd8a8;
+  border-radius: 9px;
+
+  color: #c45500;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.card-header h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.card-header p {
+  margin: 4px 0 0;
+  color: #667085;
+  font-size: 13px;
+}
+
+
+/* =========================================
+   FORM
+   ========================================= */
+
+.form-body {
+  padding: 26px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 21px 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  margin-bottom: 8px;
+
+  color: #344054;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.form-group label span {
+  color: #d92d20;
+  margin-left: 2px;
+}
+
+.form-control-custom {
+  width: 100%;
+  min-height: 45px;
+
+  padding: 11px 13px;
+
+  background: #ffffff;
+  border: 1px solid #aeb4b9;
+  border-radius: 6px;
+
+  color: #172033;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.form-control-custom::placeholder {
+  color: #98a2b3;
+}
+
+.form-control-custom:hover {
+  border-color: #7c858d;
+}
+
+.form-control-custom:focus {
+  border-color: #007eb9;
+
+  box-shadow:
+    0 0 0 3px rgba(0, 126, 185, 0.13);
+}
+
+.address-input {
+  min-height: 90px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+
+/* =========================================
+   FORM ACTION
+   ========================================= */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  margin-top: 25px;
+  padding-top: 22px;
+
+  border-top: 1px solid #eaecf0;
+}
+
+.btn-add-location {
+  min-height: 45px;
+  padding: 0 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border: 1px solid #e47911;
+  border-radius: 7px;
+
+  background: #ff9900;
+
+  color: #172033;
+  font-size: 14px;
+  font-weight: 800;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.08);
+
+  transition:
+    background 0.15s ease,
+    transform 0.1s ease,
+    box-shadow 0.15s ease;
+}
+
+.btn-add-location:hover {
+  background: #f08800;
+
+  box-shadow:
+    0 3px 7px rgba(0, 0, 0, 0.12);
+}
+
+.btn-add-location:active {
+  transform: translateY(1px);
+}
+
+.button-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+
+/* =========================================
+   LOCATIONS HEADER
+   ========================================= */
+
+.locations-header {
+  min-height: 85px;
+  padding: 20px 25px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  background: #ffffff;
+  border-bottom: 1px solid #e7e9e9;
+}
+
+.locations-title {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.locations-icon {
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #f2f4f7;
+  border-radius: 8px;
+
+  font-size: 19px;
+}
+
+.locations-title h2 {
+  margin: 0;
+
+  color: #172033;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.locations-title p {
+  margin: 4px 0 0;
+
+  color: #667085;
+  font-size: 13px;
+}
+
+.location-count {
+  padding: 7px 12px;
+
+  background: #f2f4f7;
+  border: 1px solid #e4e7ec;
+  border-radius: 20px;
+
+  color: #475467;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   LOCATION LIST
+   ========================================= */
+
+.locations-list {
+  padding: 8px 25px 25px;
+}
+
+.location-item {
+  min-height: 105px;
+
+  display: flex;
+  align-items: center;
+  gap: 17px;
+
+  padding: 18px 5px;
+
+  border-bottom: 1px solid #eaecf0;
+}
+
+.location-item:last-child {
+  border-bottom: none;
+}
+
+
+/* =========================================
+   LOCATION PIN
+   ========================================= */
+
+.location-pin {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fef3e7;
+  border: 1px solid #fbd7aa;
+  border-radius: 50%;
+
+  font-size: 21px;
+}
+
+
+/* =========================================
+   LOCATION DETAILS
+   ========================================= */
+
+.location-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.location-name {
+  color: #172033;
+
+  font-size: 16px;
+  font-weight: 800;
+
+  line-height: 1.35;
+}
+
+.location-address {
+  max-width: 700px;
+
+  margin-top: 5px;
+
+  color: #667085;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.location-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+
+  margin-top: 9px;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+
+  padding: 4px 8px;
+
+  background: #f8f9fa;
+  border: 1px solid #e4e7ec;
+  border-radius: 5px;
+
+  color: #475467;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   LOCATION ACTIONS
+   ========================================= */
+
+.location-actions {
+  min-width: 125px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 9px;
+}
+
+.active-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 5px 9px;
+
+  background: #ecfdf3;
+  border: 1px solid #abefc6;
+  border-radius: 20px;
+
+  color: #027a48;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+
+  background: #12b76a;
+  border-radius: 50%;
+}
+
+.btn-deactivate {
+  min-height: 34px;
+
+  padding: 0 12px;
+
+  background: #ffffff;
+  border: 1px solid #d0d5dd;
+  border-radius: 5px;
+
+  color: #b42318;
+
+  font-size: 12px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.btn-deactivate:hover {
+  background: #fef3f2;
+  border-color: #fecdca;
+}
+
+
+/* =========================================
+   EMPTY STATE
+   ========================================= */
+
+.empty-state {
+  min-height: 260px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 45px 20px;
+}
+
+.empty-icon {
+  width: 65px;
+  height: 65px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 15px;
+
+  background: #f2f4f7;
+  border-radius: 50%;
+
+  font-size: 27px;
+}
+
+.empty-state h3 {
+  margin: 0;
+
+  color: #344054;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.empty-state p {
+  margin: 7px 0 0;
+
+  color: #667085;
+
+  font-size: 13px;
+}
+
+
+/* =========================================
+   TABLET
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  .header-content {
+    padding: 24px;
+  }
+
+  .main-container {
+    padding: 25px 24px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+
+  .location-item {
+    align-items: flex-start;
+  }
+
+  .location-actions {
+    min-width: 105px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .location-management-page {
+    padding-bottom: 30px;
+  }
+
+  .header-content {
+    min-height: auto;
+
+    padding: 20px 16px;
+
+    align-items: flex-start;
+  }
+
+  .header-title {
+    gap: 12px;
+  }
+
+  .header-icon {
+    width: 45px;
+    height: 45px;
+    flex: 0 0 45px;
+
+    font-size: 21px;
+  }
+
+  .header-title h1 {
+    font-size: 21px;
+  }
+
+  .header-title p {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+
+  .eyebrow {
+    font-size: 9px;
+  }
+
+  .location-summary {
+    display: none;
+  }
+
+  .main-container {
+    padding: 16px 12px;
+  }
+
+  .card-header {
+    padding: 18px;
+  }
+
+  .form-body {
+    padding: 18px;
+  }
+
+  .locations-header {
+    padding: 18px;
+
+    align-items: flex-start;
+  }
+
+  .locations-title p {
+    display: none;
+  }
+
+  .location-count {
+    white-space: nowrap;
+  }
+
+  .locations-list {
+    padding: 5px 18px 18px;
+  }
+
+  .location-item {
+    flex-wrap: wrap;
+    gap: 12px;
+
+    padding: 18px 0;
+  }
+
+  .location-pin {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .location-details {
+    width: calc(100% - 55px);
+    flex: none;
+  }
+
+  .location-actions {
+    width: 100%;
+    min-width: 0;
+
+    padding-left: 54px;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-actions {
+    display: block;
+  }
+
+  .btn-add-location {
+    width: 100%;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+   ========================================= */
+
+@media (max-width: 400px) {
+
+  .header-title h1 {
+    font-size: 19px;
+  }
+
+  .form-body {
+    padding: 15px;
+  }
+
+  .card-header {
+    padding: 16px;
+  }
+
+  .location-name {
+    font-size: 15px;
+  }
+
+  .location-address {
+    font-size: 12px;
+  }
+
+  .meta-item {
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,157 @@
+/* ===== NAVBAR BASE ===== */
+.top-nav {
+  background: #131921;
+  min-height: 70px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+}
+
+.navbar {
+  overflow: visible !important;
+}
+
+/* ===== BRAND ===== */
+.navbar-brand {
+  font-size: 22px;
+  letter-spacing: 0.5px;
+  color: #ffffff !important;
+}
+
+.navbar-brand:hover {
+  color: #ff9900 !important;
+}
+
+/* ===== LINKS ===== */
+.nav-link {
+  color: #ffffff !important;
+  font-weight: 600;
+  padding: 10px 14px !important;
+  border-radius: 8px;
+  transition: 0.2s ease;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.12);
+  color: #ff9900 !important;
+}
+
+/* ===== CART BADGE ===== */
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 50%;
+}
+
+/* ===== USERNAME ===== */
+.username {
+  color: #ff9900;
+  font-weight: 600;
+}
+
+/* ===== LOGOUT BUTTON ===== */
+button.btn-warning {
+  background: #ff9900;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+}
+
+button.btn-warning:hover {
+  background: #f3a847;
+}
+
+/* ===== LOCATION BOX ===== */
+.deliver-box {
+  cursor: pointer;
+  padding: 6px 10px;
+  border-radius: 8px;
+  transition: 0.2s ease;
+}
+
+.deliver-box:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.deliver-small {
+  font-size: 11px;
+  color: #cccccc;
+}
+
+.deliver-main {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ff9900;
+}
+
+/* ===== LOCATION DROPDOWN ===== */
+.location-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  width: 320px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  padding: 12px;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 6px;
+}
+
+.location-item {
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-bottom: 6px;
+}
+
+.location-item:hover {
+  background: #f5f5f5;
+}
+
+.loc-city {
+  font-weight: 600;
+  font-size: 14px;
+  color: #131921;
+}
+
+.loc-address {
+  font-size: 12px;
+  color: #555;
+}
+
+.no-location {
+  font-size: 13px;
+  color: #888;
+  text-align: center;
+  padding: 10px;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 991px) {
+  .navbar-collapse {
+    background: #0f1720;
+    border-radius: 12px;
+    padding: 12px;
+    margin-top: 10px;
+  }
+}

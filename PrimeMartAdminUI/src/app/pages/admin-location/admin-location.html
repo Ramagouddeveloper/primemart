@@ -1,0 +1,283 @@
+<div class="location-management-page">
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+
+      <div class="header-title">
+        <div class="header-icon">
+          <span>📍</span>
+        </div>
+
+        <div>
+          <div class="eyebrow">PRIME MART ADMIN</div>
+          <h1>Deliverable Locations</h1>
+          <p>Manage the locations where customers can receive their orders.</p>
+        </div>
+      </div>
+
+      <div class="location-summary">
+        <span class="summary-number">{{ locations.length }}</span>
+        <span class="summary-label">Locations</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Main Content -->
+  <main class="main-container">
+
+    <!-- Add Location Card -->
+    <section class="location-form-card">
+
+      <div class="card-header">
+        <div class="card-header-left">
+
+          <div class="card-header-icon">
+            <span>＋</span>
+          </div>
+
+          <div>
+            <h2>Add New Location</h2>
+            <p>Create a new customer delivery location.</p>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="form-body">
+
+        <div class="form-grid">
+
+          <!-- City -->
+          <div class="form-group">
+            <label>
+              City
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              class="form-control-custom"
+              placeholder="Enter city"
+              [(ngModel)]="city">
+          </div>
+
+
+          <!-- Area -->
+          <div class="form-group">
+            <label>
+              Area
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              class="form-control-custom"
+              placeholder="Enter area"
+              [(ngModel)]="area">
+          </div>
+
+
+          <!-- Landmark -->
+          <div class="form-group">
+            <label>Landmark</label>
+
+            <input
+              type="text"
+              class="form-control-custom"
+              placeholder="Enter landmark"
+              [(ngModel)]="landmark">
+          </div>
+
+
+          <!-- State -->
+          <div class="form-group">
+            <label>
+              State
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              class="form-control-custom"
+              placeholder="Enter state"
+              [(ngModel)]="state">
+          </div>
+
+
+          <!-- Full Address -->
+          <div class="form-group full-width">
+            <label>
+              Full Address
+              <span>*</span>
+            </label>
+
+            <textarea
+              class="form-control-custom address-input"
+              rows="3"
+              placeholder="Enter complete delivery address"
+              [(ngModel)]="fullAddress">
+            </textarea>
+          </div>
+
+
+          <!-- Pincode -->
+          <div class="form-group">
+            <label>
+              Pincode
+              <span>*</span>
+            </label>
+
+            <input
+              type="text"
+              class="form-control-custom"
+              placeholder="Enter pincode"
+              maxlength="6"
+              [(ngModel)]="pincode">
+          </div>
+
+        </div>
+
+
+        <!-- Action -->
+        <div class="form-actions">
+
+          <button
+            type="button"
+            class="btn-add-location"
+            (click)="addLocation()">
+
+            <span class="button-icon">＋</span>
+            <span>Add Location</span>
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- Locations Card -->
+    <section class="locations-card">
+
+      <div class="locations-header">
+
+        <div class="locations-title">
+
+          <div class="locations-icon">
+            <span>📍</span>
+          </div>
+
+          <div>
+            <h2>All Locations</h2>
+            <p>Manage your available delivery locations.</p>
+          </div>
+
+        </div>
+
+        <div class="location-count">
+          {{ locations.length }} Total
+        </div>
+
+      </div>
+
+
+      <!-- Location List -->
+      <div class="locations-list">
+
+        <div
+          *ngFor="let loc of locations"
+          class="location-item">
+
+          <!-- Location Icon -->
+          <div class="location-pin">
+            📍
+          </div>
+
+
+          <!-- Location Details -->
+          <div class="location-details">
+
+            <div class="location-name">
+              {{loc.city}}, {{loc.area}}
+            </div>
+
+            <div class="location-address">
+              {{loc.fullAddress}}
+            </div>
+
+            <div class="location-meta">
+
+              <span
+                *ngIf="loc.landmark"
+                class="meta-item">
+                <span>🏷️</span>
+                {{loc.landmark}}
+              </span>
+
+              <span class="meta-item">
+                <span>📮</span>
+                {{loc.pincode}}
+              </span>
+
+              <span class="meta-item">
+                <span>🌐</span>
+                {{loc.state}}
+              </span>
+
+            </div>
+
+          </div>
+
+
+          <!-- Location Status -->
+          <div class="location-actions">
+
+            <span class="active-badge">
+              <span class="status-dot"></span>
+              Active
+            </span>
+
+            <button
+              type="button"
+              class="btn-deactivate"
+              (click)="deactivate(loc.id)">
+
+              <span>Deactivate</span>
+
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- Empty State -->
+        <div
+          *ngIf="locations.length === 0"
+          class="empty-state">
+
+          <div class="empty-icon">
+            📍
+          </div>
+
+          <h3>No locations available</h3>
+
+          <p>
+            Add your first delivery location using the form above.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

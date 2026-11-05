@@ -1,0 +1,350 @@
+<div class="order-management-page">
+
+  <!-- Header -->
+  <section class="page-header">
+    <div class="header-content">
+
+      <div class="header-title">
+        <div class="header-icon">
+          📦
+        </div>
+
+        <div>
+          <div class="eyebrow">PRIME MART ADMIN</div>
+          <h1>Order Management</h1>
+          <p>Review customer orders and manage fulfillment.</p>
+        </div>
+      </div>
+
+      <div class="order-summary">
+        <span class="summary-number">{{orders.length}}</span>
+        <span class="summary-label">Total Orders</span>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- Main -->
+  <main class="main-container">
+
+    <!-- Orders Card -->
+    <section class="orders-card">
+
+      <div class="orders-header">
+
+        <div class="orders-title">
+          <div class="orders-title-icon">
+            📋
+          </div>
+
+          <div>
+            <h2>Customer Orders</h2>
+            <p>Track and update order fulfillment status.</p>
+          </div>
+        </div>
+
+        <div class="orders-count">
+          {{orders.length}} Orders
+        </div>
+
+      </div>
+
+
+      <!-- Desktop / Tablet Table -->
+      <div class="table-wrapper">
+
+        <table class="orders-table">
+
+          <thead>
+            <tr>
+              <th>ORDER</th>
+              <th>CUSTOMER</th>
+              <th>AMOUNT</th>
+              <th>PAYMENT</th>
+              <th>STATUS</th>
+              <th>LOCATION</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let order of orders">
+
+              <!-- Order -->
+              <td>
+                <div class="order-number">
+                  #{{order.id}}
+                </div>
+              </td>
+
+
+              <!-- Customer -->
+              <td>
+                <div class="customer-cell">
+
+                  <div class="customer-avatar">
+                    {{order.username?.charAt(0)?.toUpperCase() || 'C'}}
+                  </div>
+
+                  <div class="customer-info">
+                    <span class="customer-name">
+                      {{order.username}}
+                    </span>
+                    <span class="customer-label">
+                      Customer
+                    </span>
+                  </div>
+
+                </div>
+              </td>
+
+
+              <!-- Amount -->
+              <td>
+                <div class="amount">
+                  ₹{{order.total}}
+                </div>
+              </td>
+
+
+              <!-- Payment -->
+              <td>
+                <span
+                  class="payment-badge"
+                  [class.online]="order.paymentMethod === 'ONLINE'"
+                  [class.cod]="order.paymentMethod === 'COD'">
+
+                  {{order.paymentMethod || '-'}}
+
+                </span>
+              </td>
+
+
+              <!-- Status -->
+              <td>
+
+                <span
+                  class="status-badge"
+                  [class.pending]="order.status === 'PENDING'"
+                  [class.accepted]="order.status === 'ACCEPTED'"
+                  [class.shipped]="order.status === 'SHIPPED'"
+                  [class.out]="order.status === 'OUT_FOR_DELIVERY'"
+                  [class.delivered]="order.status === 'DELIVERED'"
+                  [class.cancelled]="order.status === 'CANCELLED'">
+
+                  <span class="status-dot"></span>
+                  {{order.status}}
+
+                </span>
+
+              </td>
+
+
+              <!-- Location -->
+              <td>
+                <div class="location-cell">
+
+                  <span class="location-icon">
+                    📍
+                  </span>
+
+                  <span>
+                    {{order.locationId || '-'}}
+                  </span>
+
+                </div>
+              </td>
+
+
+              <!-- Actions -->
+              <td>
+
+                <div class="actions">
+
+                  <button
+                    *ngIf="order.status==='PENDING'"
+                    class="action-btn accept"
+                    (click)="acceptOrder(order.id)">
+
+                    <span>✓</span>
+                    Accept
+
+                  </button>
+
+
+                  <button
+                    *ngIf="order.status==='ACCEPTED'"
+                    class="action-btn ship"
+                    (click)="shipOrder(order.id)">
+
+                    <span>🚚</span>
+                    Ship
+
+                  </button>
+
+
+                  <button
+                    *ngIf="order.status==='SHIPPED'"
+                    class="action-btn out"
+                    (click)="outForDelivery(order.id)">
+
+                    <span>🚴</span>
+                    Out
+
+                  </button>
+
+
+                  <button
+                    *ngIf="order.status==='OUT_FOR_DELIVERY'"
+                    class="action-btn deliver"
+                    (click)="deliverOrder(order.id)">
+
+                    <span>✓</span>
+                    Deliver
+
+                  </button>
+
+
+                  <button
+                    class="action-btn items"
+                    (click)="viewItems(order.id)">
+
+                    <span>👁</span>
+
+                    {{selectedOrderId===order.id ? 'Hide' : 'Items'}}
+
+                  </button>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+
+            <!-- Empty -->
+            <tr *ngIf="orders.length===0">
+
+              <td colspan="7">
+
+                <div class="empty-state">
+
+                  <div class="empty-icon">
+                    📦
+                  </div>
+
+                  <h3>No orders found</h3>
+
+                  <p>
+                    Customer orders will appear here when they place an order.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+
+    <!-- Order Items -->
+    <section
+      *ngIf="selectedOrderId!==null"
+      class="order-items-card">
+
+      <div class="items-header">
+
+        <div class="items-title">
+
+          <div class="items-icon">
+            🛒
+          </div>
+
+          <div>
+            <h2>Order #{{selectedOrderId}}</h2>
+            <p>Products included in this order.</p>
+          </div>
+
+        </div>
+
+        <button
+          class="close-items"
+          (click)="viewItems(selectedOrderId)">
+
+          ✕
+
+        </button>
+
+      </div>
+
+
+      <div class="items-table-wrapper">
+
+        <table class="items-table">
+
+          <thead>
+            <tr>
+              <th>PRODUCT</th>
+              <th>QUANTITY</th>
+              <th>PRICE</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr *ngFor="let item of orderItems">
+
+              <td>
+
+                <div class="product-cell">
+
+                  <div class="product-image-placeholder">
+                    🛍️
+                  </div>
+
+                  <span class="product-name">
+                    {{item.product?.name}}
+                  </span>
+
+                </div>
+
+              </td>
+
+              <td>
+
+                <span class="quantity-badge">
+                  ×{{item.quantity}}
+                </span>
+
+              </td>
+
+              <td>
+
+                <span class="item-price">
+                  ₹{{item.price}}
+                </span>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

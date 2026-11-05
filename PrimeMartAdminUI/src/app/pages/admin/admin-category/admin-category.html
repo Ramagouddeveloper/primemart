@@ -1,0 +1,318 @@
+<div class="category-management-page">
+
+  <!-- =========================
+       PAGE HEADER
+  ========================== -->
+  <div class="page-header">
+    <div class="container">
+
+      <div class="header-content">
+
+        <div>
+          <span class="eyebrow">
+            CATEGORY MANAGEMENT
+          </span>
+
+          <h1>
+            Manage Categories
+          </h1>
+
+          <p>
+            Create and manage product categories for your assigned location.
+          </p>
+        </div>
+
+        <div class="header-icon">
+          🗂️
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =========================
+       MAIN CONTENT
+  ========================== -->
+  <div class="container main-container">
+
+
+    <!-- =========================
+         ADD CATEGORY CARD
+    ========================== -->
+    <div class="category-form-card">
+
+      <div class="card-header">
+
+        <div class="card-header-icon">
+          ➕
+        </div>
+
+        <div>
+          <h2>
+            Add Category
+          </h2>
+
+          <p>
+            Create a new category for your products.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="form-body">
+
+        <div class="form-group">
+
+          <label>
+            Category Name
+            <span class="required">*</span>
+          </label>
+
+          <input
+            class="form-control-custom"
+            type="text"
+            placeholder="e.g. Grocery, Electronics, Home Care"
+            [(ngModel)]="name">
+
+          <small>
+            Enter a unique and descriptive category name.
+          </small>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn-primary"
+          (click)="addCategory()">
+
+          <span>
+            ➕
+          </span>
+
+          Add Category
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- =========================
+         CATEGORY TABLE
+    ========================== -->
+    <div class="categories-card">
+
+      <!-- Table Header -->
+      <div class="categories-header">
+
+        <div class="categories-title">
+
+          <div class="categories-icon">
+            📋
+          </div>
+
+          <div>
+
+            <h2>
+              Category Table
+            </h2>
+
+            <p>
+              Categories currently available in the system.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- Category Count -->
+        <div class="category-count">
+
+          <strong>
+            {{ categories.length }}
+          </strong>
+
+          <span>
+            Categories
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <!-- =========================
+           TABLE
+      ========================== -->
+      <div class="table-wrapper">
+
+        <table class="categories-table">
+
+          <thead>
+
+            <tr>
+
+              <th>
+                ID
+              </th>
+
+              <th>
+                Category
+              </th>
+
+              <th>
+                Admin
+              </th>
+
+              <th>
+                Location
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody>
+
+            <!-- =========================
+                 CATEGORY ROW
+            ========================== -->
+            <tr
+              *ngFor="let c of categories">
+
+              <!-- ID -->
+              <td>
+
+                <span class="category-id">
+                  #{{ c.id }}
+                </span>
+
+              </td>
+
+
+              <!-- Name -->
+              <td>
+
+                <div class="category-name-cell">
+
+                  <div class="category-avatar">
+                    🗂️
+                  </div>
+
+                  <div>
+
+                    <strong>
+                      {{ c.name }}
+                    </strong>
+
+                    <span>
+                      Product Category
+                    </span>
+
+                  </div>
+
+                </div>
+
+              </td>
+
+
+              <!-- Admin -->
+              <td>
+
+                <span
+                  class="admin-badge"
+                  *ngIf="c.adminId">
+
+                  Admin #{{ c.adminId }}
+
+                </span>
+
+                <span
+                  class="not-assigned"
+                  *ngIf="!c.adminId">
+
+                  Global
+
+                </span>
+
+              </td>
+
+
+              <!-- Location -->
+              <td>
+
+                <div
+                  class="location-cell"
+                  *ngIf="c.locationId">
+
+                  <span class="location-icon">
+                    📍
+                  </span>
+
+                  <span>
+                    {{ c.locationId }}
+                  </span>
+
+                </div>
+
+                <span
+                  class="not-assigned"
+                  *ngIf="!c.locationId">
+
+                  Global
+
+                </span>
+
+              </td>
+
+            </tr>
+
+
+            <!-- =========================
+                 EMPTY STATE
+            ========================== -->
+            <tr
+              *ngIf="categories.length === 0">
+
+              <td
+                colspan="4"
+                class="empty-cell">
+
+                <div class="empty-state">
+
+                  <div class="empty-icon">
+                    🗂️
+                  </div>
+
+                  <h3>
+                    No categories found
+                  </h3>
+
+                  <p>
+                    Add your first category using the form above.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

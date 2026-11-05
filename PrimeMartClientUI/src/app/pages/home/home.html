@@ -1,0 +1,362 @@
+<div class="home-wrap">
+
+  <!-- =========================
+       HERO
+  ========================== -->
+
+  <section class="hero-section">
+
+    <div class="hero-overlay"></div>
+
+    <div class="container hero-content">
+
+      <div class="hero-text">
+
+        <div class="hero-small">
+          PRIME MART
+        </div>
+
+        <h1>
+          Everything you need,
+          <span>delivered to you.</span>
+        </h1>
+
+        <p>
+          Shop quality products from trusted local sellers
+          with convenient delivery.
+        </p>
+
+        <a
+          routerLink="/products"
+          class="shop-btn">
+          Shop Now
+          <span>→</span>
+        </a>
+
+      </div>
+
+      <div class="hero-shopping-card">
+
+        <div class="hero-card-icon">
+          🛒
+        </div>
+
+        <div>
+          <strong>Shop Local</strong>
+          <small>Discover products near you</small>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CATEGORY SECTION
+  ========================== -->
+
+  <section class="category-section">
+
+    <div class="container">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Shop by Category</h2>
+          <p>Find what you need quickly</p>
+        </div>
+
+        <a
+          routerLink="/products"
+          class="see-all">
+          See all
+          <span>→</span>
+        </a>
+
+      </div>
+
+
+      @if (loadingCategories) {
+
+        <div class="category-loading">
+
+          <div class="loading-box"></div>
+          <div class="loading-box"></div>
+          <div class="loading-box"></div>
+          <div class="loading-box"></div>
+
+        </div>
+
+      }
+
+
+      @if (!loadingCategories) {
+
+        <div class="category-grid">
+
+          @for (cat of categories; track cat.id) {
+
+            <a
+              routerLink="/products"
+              class="category-card">
+
+              <div class="category-icon">
+                {{ getCategoryIcon(cat.name) }}
+              </div>
+
+              <div class="category-name">
+                {{ cat.name }}
+              </div>
+
+              <div class="category-arrow">
+                →
+              </div>
+
+            </a>
+
+          }
+
+        </div>
+
+      }
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       PRODUCTS
+  ========================== -->
+
+  <section class="products-section">
+
+    <div class="container">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Latest Products</h2>
+          <p>Fresh picks available near you</p>
+        </div>
+
+        <a
+          routerLink="/products"
+          class="see-all">
+          See all
+          <span>→</span>
+        </a>
+
+      </div>
+
+
+      @if (loadingProducts) {
+
+        <div class="product-loading-grid">
+
+          @for (item of [1,2,3,4]; track item) {
+
+            <div class="product-loading-card">
+
+              <div class="skeleton-image"></div>
+
+              <div class="skeleton-line"></div>
+
+              <div class="skeleton-line small"></div>
+
+              <div class="skeleton-button"></div>
+
+            </div>
+
+          }
+
+        </div>
+
+      }
+
+
+      @if (!loadingProducts) {
+
+        @if (products.length === 0) {
+
+          <div class="no-products">
+
+            <div class="no-products-icon">
+              🛍️
+            </div>
+
+            <h3>No products available</h3>
+
+            <p>
+              No products are currently available
+              for this location.
+            </p>
+
+            <a
+              routerLink="/products"
+              class="shop-btn small">
+              Browse Products
+            </a>
+
+          </div>
+
+        }
+
+
+        @if (products.length > 0) {
+
+          <div class="product-grid">
+
+            @for (product of products; track product.id) {
+
+              <div class="product-card">
+
+                <!-- IMAGE -->
+
+                <div class="product-image-area">
+
+                  <span class="deal-badge">
+                    Deal
+                  </span>
+
+                  <img
+                    [src]="getImageFromBytes(product.image)"
+                    [alt]="product.name || 'Product'"
+                    (error)="onImageError($event)"
+                  />
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="product-details">
+
+                  <div class="product-category">
+                    {{ product.category?.name || 'Product' }}
+                  </div>
+
+                  <h3 class="product-name">
+                    {{ product.name }}
+                  </h3>
+
+
+                  <!-- RATING -->
+
+                  <div class="rating-row">
+
+                    <span class="stars">
+                      ★★★★★
+                    </span>
+
+                    <span class="rating-count">
+                      4.5
+                    </span>
+
+                  </div>
+
+
+                  <!-- PRICE -->
+
+                  <div class="price-row">
+
+                    <span class="current-price">
+                      ₹{{ product.price }}
+                    </span>
+
+                    @if (
+                      product.actualPrice &&
+                      product.actualPrice > product.price
+                    ) {
+
+                      <span class="actual-price">
+                        ₹{{ product.actualPrice }}
+                      </span>
+
+                      <span class="discount">
+                        {{
+                          getDiscount(
+                            product.actualPrice,
+                            product.price
+                          )
+                        }}% off
+                      </span>
+
+                    }
+
+                  </div>
+
+
+                  <div class="delivery-text">
+                    ✓ Available for your location
+                  </div>
+
+
+                  <!-- BUTTON -->
+
+                  <a
+                    [routerLink]="['/product', product.id]"
+                    class="view-product-btn">
+                    View Product
+                  </a>
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+      }
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       BOTTOM CTA
+  ========================== -->
+
+  <section class="bottom-banner">
+
+    <div class="container">
+
+      <div class="bottom-banner-content">
+
+        <div>
+
+          <div class="bottom-label">
+            PRIME MART
+          </div>
+
+          <h2>
+            Great products.
+            <span>Great prices.</span>
+          </h2>
+
+          <p>
+            Start shopping and discover something you'll love.
+          </p>
+
+        </div>
+
+        <a
+          routerLink="/products"
+          class="shop-btn">
+          Start Shopping
+          <span>→</span>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+</div>
